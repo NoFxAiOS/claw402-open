@@ -1,0 +1,81 @@
+id: openai
+name: OpenAI
+short_description: "GPT-4o, GPT-4o-mini and more — pay per request with USDC"
+short_description_zh: "GPT-4o、GPT-4o-mini 等模型 — 用 USDC 按次付费"
+full_description: "Access OpenAI's powerful language models without an account or API key. Pay per request with USDC via x402. Perfect for AI agents that need autonomous access to GPT models."
+full_description_zh: "无需注册 OpenAI 账号或 API Key，直接用 USDC 按次调用 OpenAI 的强大语言模型。非常适合需要自主调用 GPT 模型的 AI Agent。"
+website: https://openai.com
+logo_url: /providers/openai.svg
+category: ai
+tags: [ai, llm, gpt, chat, embeddings, agents]
+featured: true
+
+upstream_base_url: https://api.openai.com
+upstream_type: api_key
+upstream_auth_env: OPENAI_API_KEY
+upstream_auth_header: Authorization
+
+routes:
+  # ── Chat Completions ──
+  - gateway_path: /api/v1/ai/openai/chat
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    user_price: "0.01"
+    upstream_cost: "0.003"
+    description: "GPT-4o 对话补全"
+    description_en: "Chat completions with GPT-4o (default)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/openai/chat/mini
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    user_price: "0.003"
+    upstream_cost: "0.0005"
+    description: "GPT-4o-mini 对话补全（更快更便宜）"
+    description_en: "Chat completions with GPT-4o-mini (faster, cheaper)"
+    mime_type: application/json
+
+  # ── Embeddings ──
+  - gateway_path: /api/v1/ai/openai/embeddings
+    upstream_path: /v1/embeddings
+    method: POST
+    category: Embeddings
+    user_price: "0.002"
+    upstream_cost: "0.0001"
+    description: "文本向量嵌入（text-embedding-3-small）"
+    description_en: "Text embeddings with text-embedding-3-small"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/openai/embeddings/large
+    upstream_path: /v1/embeddings
+    method: POST
+    category: Embeddings
+    user_price: "0.005"
+    upstream_cost: "0.0004"
+    description: "高维度文本向量嵌入（text-embedding-3-large）"
+    description_en: "Text embeddings with text-embedding-3-large"
+    mime_type: application/json
+
+  # ── Image Generation ──
+  - gateway_path: /api/v1/ai/openai/images
+    upstream_path: /v1/images/generations
+    method: POST
+    category: Images
+    user_price: "0.05"
+    upstream_cost: "0.02"
+    description: "DALL·E 图像生成"
+    description_en: "Image generation with DALL·E"
+    mime_type: application/json
+
+  # ── Models List ──
+  - gateway_path: /api/v1/ai/openai/models
+    upstream_path: /v1/models
+    method: GET
+    category: Models
+    user_price: "0.001"
+    upstream_cost: "0.000"
+    description: "可用模型列表"
+    description_en: "List available models"
+    mime_type: application/json
