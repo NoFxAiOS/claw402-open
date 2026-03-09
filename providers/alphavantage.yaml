@@ -1,5 +1,5 @@
 id: alphavantage
-order: 3
+order: 9
 name: Alpha Vantage
 short_description: "Real-time & historical US stock market data"
 full_description: "Alpha Vantage provides real-time stock quotes, historical OHLCV data, technical indicators, company fundamentals, earnings, and market sentiment for US equities and global markets."
@@ -19,7 +19,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/quote
     upstream_path: /query?function=GLOBAL_QUOTE
     category: Quote
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股实时报价（最新价/涨跌/成交量）"
     description_en: "Real-time US stock quote (price, change, volume)"
@@ -28,7 +28,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/search
     upstream_path: /query?function=SYMBOL_SEARCH
     category: Quote
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "股票代码搜索（关键词模糊匹配）"
     description_en: "Stock symbol search by keyword"
@@ -38,7 +38,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/daily
     upstream_path: /query?function=TIME_SERIES_DAILY
     category: Time Series
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股日线行情（OHLCV，最近100或完整历史）"
     description_en: "Daily OHLCV data (compact=100 days or full history)"
@@ -47,7 +47,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/daily-adjusted
     upstream_path: /query?function=TIME_SERIES_DAILY_ADJUSTED
     category: Time Series
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股复权日线行情（含股息/拆股调整）"
     description_en: "Daily adjusted OHLCV (dividend & split adjusted)"
@@ -56,7 +56,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/intraday
     upstream_path: /query?function=TIME_SERIES_INTRADAY
     category: Time Series
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股分钟级行情（1/5/15/30/60min）"
     description_en: "Intraday OHLCV bars (1/5/15/30/60min intervals)"
@@ -65,7 +65,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/weekly
     upstream_path: /query?function=TIME_SERIES_WEEKLY
     category: Time Series
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股周线行情"
     description_en: "Weekly OHLCV time series"
@@ -74,7 +74,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/monthly
     upstream_path: /query?function=TIME_SERIES_MONTHLY
     category: Time Series
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "美股月线行情"
     description_en: "Monthly OHLCV time series"
@@ -84,7 +84,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/overview
     upstream_path: /query?function=OVERVIEW
     category: Fundamentals
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "公司基本面（市值/PE/PB/营收/净利润/分红等）"
     description_en: "Company overview: market cap, PE, PB, revenue, EPS, dividends"
@@ -93,7 +93,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/earnings
     upstream_path: /query?function=EARNINGS
     category: Fundamentals
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "季度/年度 EPS 及预期对比"
     description_en: "Quarterly & annual EPS vs. analyst estimates"
@@ -102,7 +102,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/income
     upstream_path: /query?function=INCOME_STATEMENT
     category: Fundamentals
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "利润表（季度/年度）"
     description_en: "Income statement (quarterly & annual)"
@@ -111,7 +111,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/balance-sheet
     upstream_path: /query?function=BALANCE_SHEET
     category: Fundamentals
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "资产负债表（季度/年度）"
     description_en: "Balance sheet (quarterly & annual)"
@@ -120,7 +120,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/cash-flow
     upstream_path: /query?function=CASH_FLOW
     category: Fundamentals
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "现金流量表（季度/年度）"
     description_en: "Cash flow statement (quarterly & annual)"
@@ -130,7 +130,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/movers
     upstream_path: /query?function=TOP_GAINERS_LOSERS
     category: Market
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "当日涨幅榜/跌幅榜/成交量榜"
     description_en: "Top gainers, losers, and most active stocks today"
@@ -140,7 +140,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/news
     upstream_path: /query?function=NEWS_SENTIMENT
     category: News
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "股票新闻及 AI 情绪分析（看涨/看跌评分）"
     description_en: "News articles with AI sentiment scores (bullish/bearish)"
@@ -150,7 +150,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/rsi
     upstream_path: /query?function=RSI
     category: Technical
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "RSI 相对强弱指标"
     description_en: "Relative Strength Index (RSI)"
@@ -159,7 +159,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/macd
     upstream_path: /query?function=MACD
     category: Technical
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "MACD 指标（快线/慢线/柱状图）"
     description_en: "MACD (signal, histogram, fast/slow lines)"
@@ -168,7 +168,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/bbands
     upstream_path: /query?function=BBANDS
     category: Technical
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "布林带（上轨/中轨/下轨）"
     description_en: "Bollinger Bands (upper, middle, lower)"
@@ -177,7 +177,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/sma
     upstream_path: /query?function=SMA
     category: Technical
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "简单移动平均线（SMA）"
     description_en: "Simple Moving Average (SMA)"
@@ -186,7 +186,7 @@ routes:
   - gateway_path: /api/v1/stocks/us/ema
     upstream_path: /query?function=EMA
     category: Technical
-    user_price: "0.00001"
+    user_price: "0.001"
     upstream_cost: "0.000"
     description: "指数移动平均线（EMA）"
     description_en: "Exponential Moving Average (EMA)"
