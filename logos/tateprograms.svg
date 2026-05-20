@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Tate Programs">
+  <rect width="128" height="128" rx="24" fill="#07130f"/>
+  <path d="M28 31h72v16H73v54H55V47H28z" fill="#e9fff4"/>
+  <path d="M31 88h66v13H31z" fill="#23f0a7"/>
+  <path d="M88 27h13v38H88z" fill="#23f0a7"/>
+  <path d="M98 88c7.2 0 13-5.8 13-13s-5.8-13-13-13-13 5.8-13 13 5.8 13 13 13Z" fill="#ff6b3d"/>
+</svg>

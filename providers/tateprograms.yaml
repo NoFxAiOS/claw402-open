@@ -1,0 +1,61 @@
+id: tateprograms
+order: 17
+name: Tate Programs
+short_description: "x402 launch checks and agent-skill trust review"
+short_description_zh: "x402 发布检查与代理技能信任审查"
+full_description: "Tate Programs provides launch-readiness checks for x402 and agent-payment APIs, plus trust review for SKILL.md repositories before agents install or pay for third-party capabilities."
+full_description_zh: "Tate Programs 为 x402 和代理支付 API 提供发布就绪检查，并在代理安装或购买第三方能力之前审查 SKILL.md 仓库的信任风险。"
+website: https://tateprograms.com
+logo_url: /providers/tateprograms.svg
+category: ai
+tags: [x402, agent-payments, skill-security, launch-readiness, trust]
+featured: false
+
+upstream_base_url: https://the402.tateprograms.com
+upstream_type: api_key
+upstream_auth_env: TATE_PROGRAMS_PROVIDER_TOKEN
+upstream_auth_header: X-Tate-Provider-Token
+
+routes:
+  - gateway_path: /api/v1/tateprograms/x402/triage
+    upstream_path: /api/provider/triage
+    method: POST
+    category: x402
+    user_price: "0.010"
+    upstream_cost: "0.010"
+    description: "x402、MPP、Pay.sh 与代理支付端点的无付款发布面检查。"
+    description_en: "No-payment launch-surface triage for x402, MPP, Pay.sh, and agent-payment endpoints."
+    mime_type: application/json
+    allowed_params: [url, method, origin]
+    body_defaults:
+      url: "https://example.com/api/paid-route"
+      method: "GET"
+      origin: "https://example.com"
+
+  - gateway_path: /api/v1/tateprograms/x402/index-watch
+    upstream_path: /api/provider/index-watch
+    method: POST
+    category: x402
+    user_price: "0.010"
+    upstream_cost: "0.010"
+    description: "按提供方、域名或服务 URL 检查 402 Index / x402 服务发现状态。"
+    description_en: "Check 402 Index / x402 service discovery state by provider, domain, or service URL."
+    mime_type: application/json
+    allowed_params: [q, protocol, health, limit]
+    body_defaults:
+      q: "tateprograms"
+      protocol: "x402"
+      limit: 25
+
+  - gateway_path: /api/v1/tateprograms/agent-skill-trust-check
+    upstream_path: /api/provider/skill-trust-check
+    method: POST
+    category: Skill Trust
+    user_price: "0.010"
+    upstream_cost: "0.010"
+    description: "在安装前审查 SKILL.md、技能仓库或技能市场列表的信任风险。"
+    description_en: "Review SKILL.md files, skill repositories, or skill marketplace listings for trust risks before installation."
+    mime_type: application/json
+    allowed_params: [url, text]
+    body_defaults:
+      url: "https://github.com/example/agent-skill"
