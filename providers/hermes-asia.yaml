@@ -1,0 +1,130 @@
+id: hermes-asia
+order: 18
+name: Hermes Asia Tool APIs
+short_description: "Asia market data & bilingual AI APIs for agents — news, currency, macro"
+short_description_zh: "亚洲市场数据 + 双语AI APIs — 新闻/汇率/宏观，面向AI Agent"
+full_description: "Hermes Asia Tool APIs provide real-time Asian market data and bilingual AI intelligence for AI agents. Three tool-grade APIs (news/currency/macro at $0.001-$0.01) plus eight market intelligence endpoints covering CN/JP/TW trade policy, Nikkei analysis, patent translation, and niche verticals. No API key required — pay per call via x402 USDC on Base."
+full_description_zh: "Hermes亚洲工具APIs为AI Agent提供实时亚洲市场数据和双语AI智能。三个工具级API（新闻/汇率/宏观，$0.001-$0.01）加八个市场情报端点，覆盖中日台贸易政策、日经分析、专利翻译及细分垂直领域。无需API Key——通过Base链x402 USDC按次付费。"
+website: https://base-worker-01.j23726919.workers.dev
+logo_url: /providers/hermes-asia.svg
+category: ai
+tags: [asia, china, japan, market-data, news, currency, forex, macro, bilingual, intelligence, cn, jp, taiwan]
+featured: true
+
+upstream_base_url: https://base-worker-01.j23726919.workers.dev
+upstream_type: x402
+upstream_auth_env: ""
+upstream_auth_header: ""
+
+routes:
+  # ── Tool APIs for AI Agents ──
+  - gateway_path: /api/v1/ai/hermes-asia/news
+    upstream_path: /api/asia-news-api
+    method: POST
+    category: Tool
+    user_price: "0.005"
+    upstream_cost: "0.000"
+    description: "亚洲实时新闻标题（CN/JP/TW/KR/SEA）"
+    description_en: "Real-time Asian news headlines for AI agents (CN/JP/TW/KR/SEA regions)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/currency
+    upstream_path: /api/cn-jp-currency-api
+    method: POST
+    category: Tool
+    user_price: "0.001"
+    upstream_cost: "0.000"
+    description: "USD/CNY/JPY实时汇率，面向AI交易Agent"
+    description_en: "USD/CNY/JPY exchange rates for AI trading agents"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/macro
+    upstream_path: /api/asia-market-data
+    method: POST
+    category: Tool
+    user_price: "0.010"
+    upstream_cost: "0.000"
+    description: "亚洲宏观数据（GDP/CPI/PMI），面向量化Agent"
+    description_en: "Asia macro data (GDP growth, inflation, PMI) for AI quantitative agents"
+    mime_type: application/json
+
+  # ── Market Intelligence ──
+  - gateway_path: /api/v1/ai/hermes-asia/intelligence
+    upstream_path: /api/asia-intelligence
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "中日台贸易政策、市场动态、监管变化情报"
+    description_en: "CN/JP/TW trade policy, market dynamics, regulatory changes intelligence"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/japan-research
+    upstream_path: /api/japanese-research
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "日经新闻、企业财报、AI概要、BOJ政策分析"
+    description_en: "Nikkei news, corporate earnings, BOJ policy AI summaries"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/patent-translation
+    upstream_path: /api/bilingual-bridge
+    method: POST
+    category: Intelligence
+    user_price: "0.030"
+    upstream_cost: "0.000"
+    description: "中日专利及法规文档翻译（法律精度）"
+    description_en: "CN/JP patent and regulatory document translation with legal accuracy"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/anime-industry
+    upstream_path: /api/anime-industry-intel
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "日本动漫产业投资指南"
+    description_en: "Japan anime industry investment guide"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/kabukicho
+    upstream_path: /api/kabukicho-guide
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "东京歌舞伎町夜经济投资分析"
+    description_en: "Tokyo Kabukicho night economy investment analysis"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/silver-economy
+    upstream_path: /api/china-silver-economy
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "中国2.97亿银发市场分析"
+    description_en: "China 297M senior citizens market analysis"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/lying-flat
+    upstream_path: /api/lying-flat-report
+    method: POST
+    category: Intelligence
+    user_price: "0.020"
+    upstream_cost: "0.000"
+    description: "中国躺平现象与Gen-Z消费行为变化分析"
+    description_en: "China lying-flat phenomenon and Gen-Z consumer behavior shifts"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/hermes-asia/real-estate
+    upstream_path: /api/china-real-estate-2026
+    method: POST
+    category: Intelligence
+    user_price: "0.030"
+    upstream_cost: "0.000"
+    description: "中国房产市场反弹分析（2026）"
+    description_en: "China property market rebound analysis (2026)"
+    mime_type: application/json
