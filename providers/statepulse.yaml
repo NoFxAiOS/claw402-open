@@ -1,0 +1,88 @@
+id: statepulse
+order: 20
+name: StatePulse
+short_description: "On-chain wallet, gas, funding-rate & contract data — native x402 pay-per-call"
+short_description_zh: "链上钱包余额、Gas、资金费率与合约数据 — 原生 x402 按次付费"
+full_description: >
+  StatePulse provides real-time on-chain data for AI agents via native x402 payments on Base.
+  No API key needed — claw402 pays upstream automatically and charges a small markup.
+  Includes: multi-chain wallet balances (native + ERC-20), recent gas-price history,
+  perpetual funding rates, verified contract ABI lookup, and EVM transaction simulation.
+full_description_zh: >
+  StatePulse 通过 Base 链上的 x402 原生支付为 AI Agent 提供实时链上数据。
+  无需 API Key — claw402 自动向上游付费并收取少量加价。
+  包含：多链钱包余额（原生 + ERC-20）、近期 Gas 价格历史、永续合约资金费率、
+  已验证合约 ABI 查询、以及 EVM 交易模拟。
+website: https://statepulse-api.hahavoid0.workers.dev
+logo_url: /providers/statepulse.svg
+category: crypto
+tags: [crypto, onchain, base, ethereum, wallet, gas, funding-rates, abi, simulation, x402-native]
+featured: false
+
+upstream_base_url: https://statepulse-api.hahavoid0.workers.dev
+upstream_type: x402
+
+routes:
+  # ── Wallet ──
+  - gateway_path: /api/v1/crypto/statepulse/balances
+    upstream_path: /blockchain/balances
+    method: POST
+    category: Wallet
+    user_price: "0.03"
+    upstream_cost: "0.02"
+    mime_type: application/json
+    description: "多链钱包余额扫描（原生币 + ERC-20）。body: wallet（必填，0x 地址），chain（可选，base 或 ethereum）。"
+    description_en: >
+      Multi-chain wallet balance scan — native coin + ERC-20 token balances for an address.
+      Body: { "wallet": "0x..." (required), "chain": "base" | "ethereum" (optional, default base) }.
+
+  # ── Gas ──
+  - gateway_path: /api/v1/crypto/statepulse/gas-history
+    upstream_path: /blockchain/gas-history
+    method: POST
+    category: Gas
+    user_price: "0.015"
+    upstream_cost: "0.01"
+    mime_type: application/json
+    description: "近期 Base Gas 价格历史。body: blocks（可选，整数，回看区块数）。"
+    description_en: >
+      Recent Base gas-price history.
+      Body: { "blocks": <int, optional — number of recent blocks to look back> }.
+
+  # ── Derivatives ──
+  - gateway_path: /api/v1/crypto/statepulse/funding-rates
+    upstream_path: /blockchain/funding-rates
+    method: POST
+    category: Derivatives
+    user_price: "0.03"
+    upstream_cost: "0.02"
+    mime_type: application/json
+    description: "永续合约资金费率。body: symbol（必填，如 BTC）。"
+    description_en: >
+      Perpetual futures funding rates.
+      Body: { "symbol": "BTC" (required) }.
+
+  # ── Contract ──
+  - gateway_path: /api/v1/crypto/statepulse/abi
+    upstream_path: /blockchain/abi
+    method: POST
+    category: Contract
+    user_price: "0.04"
+    upstream_cost: "0.03"
+    mime_type: application/json
+    description: "已验证合约 ABI 查询。body: address（必填，0x 合约地址），chain（可选，base 或 ethereum）。"
+    description_en: >
+      Verified smart-contract ABI lookup.
+      Body: { "address": "0x..." (required), "chain": "base" | "ethereum" (optional, default base) }.
+
+  - gateway_path: /api/v1/crypto/statepulse/simulate
+    upstream_path: /blockchain/simulate
+    method: POST
+    category: Contract
+    user_price: "0.18"
+    upstream_cost: "0.15"
+    mime_type: application/json
+    description: "EVM 交易模拟。body: to（必填），data（必填，calldata），from（可选），value（可选，wei）。"
+    description_en: >
+      EVM transaction simulation (dry-run a call before sending).
+      Body: { "to": "0x..." (required), "data": "0x..." (required), "from": "0x..." (optional), "value": "<wei>" (optional) }.
