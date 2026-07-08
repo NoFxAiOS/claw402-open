@@ -1,0 +1,54 @@
+id: b0x402
+name: b0x402
+order: 17
+short_description: "AI-powered crypto intelligence — meme hunter, DeFi sentiment, DINA analysis, wallet profiling"
+short_description_zh: "AI驱动的加密情报 — Meme猎手、DeFi情绪、DINA分析、钱包画像"
+full_description: "b0x402 is an autonomous x402-native API delivering real-time crypto intelligence. Endpoints: meme coin hunter (trending tokens with safety scoring), DeFi sentiment (on-chain flow analysis), Dinalibrium token analysis (DINA ecosystem insights), and wallet profiling (address activity forensics). All responses are AI-generated, machine-readable JSON. No API key — agents pay per call via x402 USDC on Base."
+full_description_zh: "b0x402 是一个自主 x402 原生 API，提供实时加密情报。端点包括：Meme币猎手（趋势代币+安全评分）、DeFi情绪（链上资金流分析）、Dinalibrium代币分析（DINA生态洞察）、钱包画像（地址活动取证）。所有响应为AI生成的机器可读JSON。无需API密钥——代理通过Base链上USDC按次付费。"
+website: https://x402-cf-worker.mulberry-boar.workers.dev
+logo_url: ""
+category: crypto
+tags: [meme-coins, defi, sentiment, on-chain, wallet-intel, ai-generated, x402-native]
+featured: false
+
+upstream_base_url: https://x402-cf-worker.mulberry-boar.workers.dev
+upstream_type: x402_native
+upstream_auth_env: ""
+upstream_auth_header: ""
+
+routes:
+  - gateway_path: /api/v1/b0x402/meme-hunter
+    upstream_path: /v1/meme-hunter
+    category: Meme Coins
+    user_price: "0.010"
+    upstream_cost: "0.010"
+    description: "Trending meme coins with AI-powered safety scoring and early detection signals"
+    description_en: "Trending meme coins with AI-powered safety scoring and early detection signals"
+    allowed_params: []
+
+  - gateway_path: /api/v1/b0x402/defi-sentiment
+    upstream_path: /v1/defi-sentiment
+    category: DeFi Analytics
+    user_price: "0.100"
+    upstream_cost: "0.100"
+    description: "On-chain DeFi sentiment analysis with capital flow tracking and yield opportunity detection"
+    description_en: "On-chain DeFi sentiment analysis with capital flow tracking and yield opportunity detection"
+    allowed_params: []
+
+  - gateway_path: /api/v1/b0x402/dinalibrium
+    upstream_path: /v1/dinalibrium
+    category: DINA Ecosystem
+    user_price: "0.100"
+    upstream_cost: "0.100"
+    description: "Dinalibrium (DINA) token ecosystem analysis — holder distribution, market depth, trading patterns"
+    description_en: "Dinalibrium (DINA) token ecosystem analysis — holder distribution, market depth, trading patterns"
+    allowed_params: []
+
+  - gateway_path: /api/v1/b0x402/wallet-profile
+    upstream_path: /v1/wallet-profile
+    category: Wallet Intelligence
+    user_price: "0.010"
+    upstream_cost: "0.010"
+    description: "Wallet address forensic profiling — activity patterns, risk scoring, DeFi interaction history"
+    description_en: "Wallet address forensic profiling — activity patterns, risk scoring, DeFi interaction history"
+    allowed_params: []

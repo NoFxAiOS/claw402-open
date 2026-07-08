@@ -1,0 +1,41 @@
+id: b0xm4
+name: b0xm4
+order: 18
+short_description: "Meridian-powered Solana DLMM pool screener — filters TVL, organic score, smart wallets, token safety, yield efficiency."
+short_description_zh: "Meridian驱动的Solana DLMM池筛选器 — 过滤TVL、有机评分、智能钱包、代币安全、收益率效率。"
+base_url: "https://b0xm4-solana-pulse.mulberry-boar.workers.dev"
+docs_url: "https://b0xm4-solana-pulse.mulberry-boar.workers.dev/health"
+pricing_tiers:
+  - tier: standard
+    price: "2.00"
+    price_description: "DLMM pools & yield hunter"
+  - tier: premium
+    price: "3.00"
+    price_description: "Token safety & full pool screener"
+  - tier: intelligence
+    price: "5.00"
+    price_description: "Smart wallets — KEY deploy signal"
+endpoints:
+  - path: /v1/dlmm-pools
+    method: GET
+    description: "Top DLMM pools — TVL, volume, organic score. Meridian thresholds: $10k-$100k TVL, $1k+ vol, 55%+ organic. $2.00/call"
+    price: "2.00"
+  - path: /v1/smart-wallets
+    method: GET
+    description: "Smart money tracking — pool creators on Meteora DLMM. KEY deploy conviction signal. $5.00/call"
+    price: "5.00"
+  - path: /v1/token-safety
+    method: GET
+    description: "Token rug-pull risk: bundle%, top10 holders, mint authority. Meridian thresholds. $3.00/call"
+    price: "3.00"
+  - path: /v1/yield-hunter
+    method: GET
+    description: "DLMM pools ranked by fee/TVL ratio (>8% target). $2.00/call"
+    price: "2.00"
+  - path: /v1/pool-screener
+    method: GET
+    description: "Full Meridian screening engine — all user-config thresholds. TVL/volume/organic/bundle/top10. $3.00/call"
+    price: "3.00"
+wallet_address: "7P7w3M9yQs5PCH2WbfmMxVWnkrobVsq1ARZBFfJ5W5zN"
+network: solana
+x402_enabled: true
