@@ -1,0 +1,56 @@
+id: redbtc
+order: 12
+name: RedBTC
+short_description: "Managed GPT-5.5 and GPT-5.4 Mini endpoints — pay per request with USDC"
+short_description_zh: "托管 GPT-5.5 和 GPT-5.4 Mini 接口 — 用 USDC 按次付费"
+full_description: "Access RedBTC's managed OpenAI-compatible inference endpoints without a RedBTC account or API key. Requests are routed through an isolated marketplace gateway with fixed models, hard rate limits, no streaming at launch, and capped output tokens for predictable pay-per-call usage."
+full_description_zh: "无需 RedBTC 账号或 API Key，即可访问 RedBTC 托管的 OpenAI 兼容推理接口。请求通过隔离的市场网关转发，固定模型、硬速率限制、上线初期不支持流式输出，并限制输出 token 以保证按次付费可控。"
+website: https://redbtco.com
+logo_url: /providers/redbtc.svg
+category: ai
+tags: [ai, llm, gpt, chat, reasoning, coding, agents, openai-compatible]
+featured: false
+
+upstream_base_url: https://redbtco.com/claw402
+upstream_type: api_key
+upstream_auth_env: REDBTC_CLAW402_API_KEY
+upstream_auth_header: Authorization
+
+routes:
+  # ── Chat Completions ──
+  - gateway_path: /api/v1/ai/redbtc/chat/5.5
+    upstream_path: /api/v1/redbtc/chat/5.5
+    method: POST
+    category: Chat
+    body_overrides:
+      model: redbtc/gpt-5.5
+      stream: false
+    user_price: "0.03"
+    upstream_cost: "0.008"
+    description: "RedBTC GPT-5.5 对话补全（托管高能力模型，固定模型，非流式）"
+    description_en: "Chat completions with RedBTC GPT-5.5 (managed high-capability model, fixed model, non-streaming)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/redbtc/chat/5.4-mini
+    upstream_path: /api/v1/redbtc/chat/5.4-mini
+    method: POST
+    category: Chat
+    body_overrides:
+      model: redbtc/gpt-5.4-mini
+      stream: false
+    user_price: "0.008"
+    upstream_cost: "0.002"
+    description: "RedBTC GPT-5.4 Mini 对话补全（快速、低成本，固定模型，非流式）"
+    description_en: "Chat completions with RedBTC GPT-5.4 Mini (fast, low-cost, fixed model, non-streaming)"
+    mime_type: application/json
+
+  # ── Models List ──
+  - gateway_path: /api/v1/ai/redbtc/models
+    upstream_path: /api/v1/redbtc/models
+    method: GET
+    category: Models
+    user_price: "0.001"
+    upstream_cost: "0.000"
+    description: "可用 RedBTC 模型列表"
+    description_en: "List available RedBTC models"
+    mime_type: application/json
