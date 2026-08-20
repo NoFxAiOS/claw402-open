@@ -1,0 +1,45 @@
+id: northcap
+name: Northcap Group
+order: 10
+short_description: "Pay-per-call crypto trading signals (DRT/ICT) via x402"
+short_description_zh: "按次付费的加密货币交易信号（DRT/ICT）"
+full_description: "Northcap provides DRT/ICT-based crypto trading signals (LONG/SHORT with entry, SL, TP, R:R) and live market data for AI agents. Strategy backtested on 2,531 historical trades. Pay per call with USDC via x402."
+full_description_zh: "Northcap 为 AI 代理提供基于 DRT/ICT 的加密货币交易信号（多/空，含入场、止损、止盈、盈亏比）和实时市场数据。策略基于 2531 笔历史交易回测。"
+website: https://clawhub.ai/northcap-group
+logo_url: /providers/northcap.svg
+category: crypto
+tags: [crypto, trading, signals, drt, ict, market-data]
+featured: false
+
+upstream_base_url: https://186.240.156.169:8791
+upstream_type: api_key
+upstream_auth_env: NORTHCAP_API_KEY
+upstream_auth_header: x-api-key
+
+routes:
+  - gateway_path: /api/v1/northcap/signals
+    upstream_path: /v1/signals
+    category: Signals
+    user_price: "0.005"
+    upstream_cost: "0.001"
+    description: "DRT/ICT crypto signals (LONG/SHORT with entry, SL, TP, R:R)"
+    description_en: "DRT/ICT crypto signals (LONG/SHORT with entry, SL, TP, R:R)"
+    allowed_params: [symbol, limit]
+
+  - gateway_path: /api/v1/northcap/market
+    upstream_path: /v1/market
+    category: Market
+    user_price: "0.005"
+    upstream_cost: "0.001"
+    description: "Real-time market data (17 symbols from DRT-Axe EA)"
+    description_en: "Real-time market data (17 symbols from DRT-Axe EA)"
+    allowed_params: [symbol, limit]
+
+  - gateway_path: /api/v1/northcap/bias
+    upstream_path: /v1/bias
+    category: Signals
+    user_price: "0.005"
+    upstream_cost: "0.001"
+    description: "ICT daily bias + premium/discount (BULL/BEAR/RANGE)"
+    description_en: "ICT daily bias + premium/discount (BULL/BEAR/RANGE)"
+    allowed_params: [symbol]
