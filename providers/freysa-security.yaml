@@ -1,0 +1,164 @@
+id: freysa-security
+order: 5
+name: Freysa Security
+short_description: "On-chain security intelligence for autonomous AI agents"
+short_description_zh: "自主 AI 代理的链上安全智能层"
+full_description: |
+  Freysa Security provides real-time on-chain security intelligence for autonomous AI agents operating on Base and Ethereum.
+  
+  27 endpoints covering: CAPTCHA solving, token honeypot detection, wallet forensics, address risk scoring, approval risk analysis, pre-trade safety checks, agent transaction preflight, smart contract code review, deep reasoning, data synthesis, web scraping, and market data (gas prices, trending tokens, Base network stats).
+  
+  Built for trading bots, DeFi agents, and automated security scanners. All endpoints payable via x402 protocol — no API keys, no signup, just USDC on Base.
+  
+  Tiered pricing: $0.00 (gas — free tier), $0.001 (data feeds), $0.01 (CAPTCHA), $0.25 (security analysis), $1.00-$2.50 (pre-flight simulation).
+website: https://economic-agent-369.freysa.dev
+logo_url: /providers/freysa-security.svg
+category: crypto
+tags: [security, on-chain, crypto, defi, trading, analysis, honeypot, forensics, risk, captcha]
+featured: true
+
+upstream_base_url: https://economic-agent-369.freysa.dev
+upstream_type: none
+
+routes:
+  # ── FREE: Gas prices (loss leader) ──
+  - gateway_path: /api/v1/freysa/eth-gas
+    upstream_path: /api/eth-gas
+    method: GET
+    category: Data
+    user_price: "0.00"
+    description_en: "Current Ethereum gas prices from live mempool (FREE)"
+    allowed_params: []
+
+  # ── HIGHEST VOLUME: CAPTCHA Solving ──
+  - gateway_path: /api/v1/freysa/captcha-solve
+    upstream_path: /api/captcha-solve
+    method: POST
+    category: Automation
+    user_price: "0.01"
+    description_en: "Solve CAPTCHA challenges for AI agents. Supports image-based and text CAPTCHAs via OCR"
+    allowed_params: [image_url, image_base64, captcha_type]
+
+  # ── HIGH VOLUME: Web Scraping ──
+  - gateway_path: /api/v1/freysa/fetch
+    upstream_path: /api/fetch
+    method: POST
+    category: Data
+    user_price: "0.001"
+    description_en: "Fetch any URL and return structured content as markdown"
+    allowed_params: [url]
+
+  # ── DATA FEEDS ($0.001) ──
+  - gateway_path: /api/v1/freysa/trending
+    upstream_path: /api/trending
+    method: GET
+    category: Data
+    user_price: "0.001"
+    description_en: "Trending tokens on Base from DexScreener"
+    allowed_params: []
+
+  - gateway_path: /api/v1/freysa/base-stats
+    upstream_path: /api/base-stats
+    method: GET
+    category: Data
+    user_price: "0.001"
+    description_en: "Real-time Base L2 network statistics"
+    allowed_params: []
+
+  - gateway_path: /api/v1/freysa/market-overview
+    upstream_path: /api/market-overview
+    method: GET
+    category: Data
+    user_price: "0.001"
+    description_en: "Aggregated crypto market data overview"
+    allowed_params: []
+
+  - gateway_path: /api/v1/freysa/gas-router
+    upstream_path: /api/gas-router
+    method: GET
+    category: Data
+    user_price: "0.001"
+    description_en: "Optimal gas token swap routing on Base"
+    allowed_params: []
+
+  - gateway_path: /api/v1/freysa/crypto-price
+    upstream_path: /api/crypto-price
+    method: GET
+    category: Data
+    user_price: "0.001"
+    description_en: "Real-time price for any crypto ticker"
+    allowed_params: [ticker]
+
+  # ── SECURITY ANALYSIS ($0.25) ──
+  - gateway_path: /api/v1/freysa/honeypot-check
+    upstream_path: /api/honeypot-check
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Token honeypot detection via bytecode analysis"
+    allowed_params: [token_address]
+
+  - gateway_path: /api/v1/freysa/address-risk
+    upstream_path: /api/address-risk
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Wallet address risk scoring (0-100)"
+    allowed_params: [address]
+
+  - gateway_path: /api/v1/freysa/approval-risk
+    upstream_path: /api/approval-risk
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Scan wallet for risky token approvals"
+    allowed_params: [wallet_address]
+
+  - gateway_path: /api/v1/freysa/wallet-forensics
+    upstream_path: /api/wallet-forensics
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Deep wallet forensic analysis"
+    allowed_params: [wallet_address]
+
+  - gateway_path: /api/v1/freysa/token-analyze
+    upstream_path: /api/token-analyze
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Deep token contract analysis including bytecode"
+    allowed_params: [token_address]
+
+  - gateway_path: /api/v1/freysa/code-review
+    upstream_path: /api/code-review
+    method: POST
+    category: Security
+    user_price: "0.25"
+    description_en: "Solidity smart contract security code review"
+    allowed_params: [code]
+
+  # ── PREMIUM ($1.00-$2.50) ──
+  - gateway_path: /api/v1/freysa/pre-trade-check
+    upstream_path: /api/pre-trade-check
+    method: POST
+    category: Security
+    user_price: "1.00"
+    description_en: "Comprehensive pre-trade safety analysis"
+    allowed_params: [token_address, trader_wallet]
+
+  - gateway_path: /api/v1/freysa/agent-preflight
+    upstream_path: /api/agent-preflight
+    method: POST
+    category: Security
+    user_price: "2.50"
+    description_en: "Full agent transaction risk assessment"
+    allowed_params: [target_address, interaction_type, value]
+
+  - gateway_path: /api/v1/freysa/reason
+    upstream_path: /api/reason
+    method: POST
+    category: AI
+    user_price: "1.00"
+    description_en: "Deep reasoning and analysis for complex problems"
+    allowed_params: [question]
