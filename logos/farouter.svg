@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="24" fill="#0d0f15"/>
+  <rect x="10" y="10" width="100" height="100" rx="18" fill="none" stroke="#14b8a6" stroke-width="2" opacity="0.35"/>
+  <text x="60" y="82" font-family="'JetBrains Mono','Space Grotesk',monospace" font-size="58" font-weight="700" fill="#14b8a6" text-anchor="middle">F</text>
+  <circle cx="88" cy="34" r="5" fill="#14b8a6">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+</svg>
