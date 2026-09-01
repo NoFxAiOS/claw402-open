@@ -1,0 +1,151 @@
+id: farouter
+order: 17
+name: FarOut
+short_description: "17 frontier LLMs (GPT-5.6, GLM-5.3, Gemini 3.1, Kimi K3, DeepSeek V4) — pay per request with USDC"
+short_description_zh: "17 个前沿大模型（GPT-5.6、GLM-5.3、Gemini 3.1、Kimi K3、DeepSeek V4）— 用 USDC 按次付费"
+full_description: "Pay-per-call access to 17 frontier models through FarOut: GPT-5.5/5.6 family, GLM 5.2/5.3, Gemini 3.1 Pro, Kimi K3/K2.x, DeepSeek V4, and MiniMax M3. [OI]-compatible chat completions with dynamic per-request quotes — the 402 prices your exact input tokens plus max_tokens. Also available directly at farouter.tech with no middleman, on Base and Solana."
+full_description_zh: "通过 FarOut 按次调用 17 个前沿模型：GPT-5.5/5.6 系列、GLM 5.2/5.3、Gemini 3.1 Pro、Kimi K3/K2.x、DeepSeek V4、MiniMax M3。兼容 [OI] API，按请求精确报价（输入 token + max_tokens）。也可直连 farouter.tech（Base 和 Solana 双链，无中间商）。"
+website: https://farouter.tech
+logo_url: /providers/farouter.svg
+category: ai
+tags: [ai, llm, gpt, glm, gemini, kimi, deepseek, minimax, chat, coding, reasoning, agents]
+featured: false
+
+upstream_base_url: https://api.farouter.tech
+upstream_type: api_key
+upstream_auth_env: FAROUTER_API_KEY
+upstream_auth_header: Authorization
+
+routes:
+  # ── Chat Completions (flagship) ──
+  - gateway_path: /api/v1/ai/farouter/chat/gpt-5.5
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: gpt-5.5
+    user_price: "0.010"
+    upstream_cost: "0.007"
+    description: "GPT-5.5 对话补全（旗舰模型）"
+    description_en: "Chat completions with GPT-5.5 (flagship)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/gpt-5.6-sol
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: gpt-5.6-sol
+    user_price: "0.012"
+    upstream_cost: "0.010"
+    description: "GPT-5.6 Sol 对话补全"
+    description_en: "Chat completions with GPT-5.6 Sol"
+    mime_type: application/json
+
+  # ── Chat Completions (balanced) ──
+  - gateway_path: /api/v1/ai/farouter/chat/glm-5.3
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: glm-5.3
+    user_price: "0.004"
+    upstream_cost: "0.003"
+    description: "GLM-5.3 对话补全（性价比之选， coding & 中文强）"
+    description_en: "Chat completions with GLM-5.3 (balanced, strong at coding)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/gemini-3.1-pro
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: gemini-3.1-pro
+    user_price: "0.005"
+    upstream_cost: "0.004"
+    description: "Gemini 3.1 Pro 对话补全"
+    description_en: "Chat completions with Gemini 3.1 Pro"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/kimi-k3
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: kimi-k3
+    user_price: "0.006"
+    upstream_cost: "0.006"
+    description: "Kimi K3 对话补全"
+    description_en: "Chat completions with Kimi K3"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/gpt-5.3-codex
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: gpt-5.3-codex
+    user_price: "0.004"
+    upstream_cost: "0.004"
+    description: "GPT-5.3 Codex 对话补全（代码专精）"
+    description_en: "Chat completions with GPT-5.3 Codex (code-specialized)"
+    mime_type: application/json
+
+  # ── Chat Completions (budget tier) ──
+  - gateway_path: /api/v1/ai/farouter/chat/gpt-5.6-luna
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: gpt-5.6-luna
+    user_price: "0.001"
+    upstream_cost: "0.0005"
+    description: "GPT-5.6 Luna 对话补全（超低价）"
+    description_en: "Chat completions with GPT-5.6 Luna (ultra-cheap)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/deepseek-v4-flash
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: deepseek-v4-flash
+    user_price: "0.002"
+    upstream_cost: "0.001"
+    description: "DeepSeek V4 Flash 对话补全（快速低价）"
+    description_en: "Chat completions with DeepSeek V4 Flash (fast, cheap)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/ai/farouter/chat/minimax-m3
+    upstream_path: /v1/chat/completions
+    method: POST
+    category: Chat
+    body_overrides:
+      model: minimax-m3
+    user_price: "0.002"
+    upstream_cost: "0.001"
+    description: "MiniMax M3 对话补全"
+    description_en: "Chat completions with MiniMax M3"
+    mime_type: application/json
+
+  # ── Anthropic-format messages ──
+  - gateway_path: /api/v1/ai/farouter/messages
+    upstream_path: /v1/metered/messages
+    method: POST
+    category: Chat
+    user_price: "0.004"
+    upstream_cost: "0.003"
+    description: "Anthropic Messages 格式（任意模型）"
+    description_en: "Anthropic Messages format (any FarOut model)"
+    mime_type: application/json
+
+  # ── Models List ──
+  - gateway_path: /api/v1/ai/farouter/models
+    upstream_path: /v1/metered/models
+    method: GET
+    category: Models
+    user_price: "0.001"
+    upstream_cost: "0"
+    description: "模型列表与实时价格"
+    description_en: "Model list with live per-model prices"
+    mime_type: application/json
