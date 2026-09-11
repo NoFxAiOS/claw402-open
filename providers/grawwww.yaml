@@ -1,0 +1,38 @@
+id: grawwww
+order: 17
+name: Grawwww Studio
+short_description: "AI character video & image generation — x402-native, pay per call with USDC"
+full_description: "Generate AI character videos (5s, $0.99) and images ($0.10) on a local RTX 4090. x402-native endpoint: no API key, no signup, just USDC on Base. Character videos use native Ref2VA multimodal anchoring for consistent identity across calls."
+website: https://grawwww.xyz
+logo_url: /providers/grawwww.svg
+category: ai
+tags: [ai, video, image, character, generation, x402, base]
+featured: false
+
+upstream_base_url: https://grawwww.xyz
+upstream_type: x402
+
+routes:
+  - gateway_path: /api/v1/grawwww/video
+    upstream_path: /api/render/video
+    method: POST
+    category: AI
+    user_price: "0.50"
+    description_en: "AI video clip (MiniMax H3, 5s, async: returns job id + status URL)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/grawwww/character-video
+    upstream_path: /api/render/character-video
+    method: POST
+    category: AI
+    user_price: "0.99"
+    description_en: "Character video with consistent identity (Ref2VA multimodal anchoring, 5s, async)"
+    mime_type: application/json
+
+  - gateway_path: /api/v1/grawwww/image
+    upstream_path: /api/render/image
+    method: POST
+    category: AI
+    user_price: "0.10"
+    description_en: "Single AI image (Krea 2, async: returns job id + status URL)"
+    mime_type: application/json

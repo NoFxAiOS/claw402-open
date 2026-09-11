@@ -70,6 +70,7 @@ Your Wallet ──USDC──→ claw402 Gateway ──API Key──→ Upstream 
 | [Gemini](https://gemini.google.com) | Gemini 3.1 Pro, 3 Flash, 2.5 Pro/Flash | $0.002–$0.030 |
 | [Grok](https://x.ai) | Grok-4.1, Grok-4, Grok-3 Mini | $0.003–$0.060 |
 | [Kimi](https://moonshot.ai) | Kimi K2.5, K2 (1T MoE, 256K context) | $0.005–$0.008 |
+| [Grawwww](https://grawwww.xyz) | Character Video, Image (GPU render) | $0.10–$0.99 |
 
 ## Quick Start
 
