@@ -1,0 +1,27 @@
+id: dorothy-witness
+name: Dorothy Witness
+short_description: "Independent external-state verification before retry"
+full_description: >
+  Dorothy Witness verifies public external state before an autonomous agent retries
+  an operation or claims completion. It returns CONFIRMED, DIVERGENT, or INCONCLUSIVE
+  with evidence provenance, observer vantage, trust-domain context, freshness, and a
+  receipt hash. Read-only verification; no credentials or private-network targets.
+website: https://openclaw-ekra.srv1969142.hstgr.cloud/witness/x402/health
+category: ai
+tags: [verification, agents, retry, readback, idempotency, receipts, x402-native]
+
+upstream_base_url: https://openclaw-ekra.srv1969142.hstgr.cloud
+upstream_type: x402
+
+routes:
+  - gateway_path: /api/v1/ai/dorothy-witness/verify
+    upstream_path: /witness/x402/claw402/verify
+    method: POST
+    category: Verification
+    user_price: "0.006"
+    upstream_cost: "0.005"
+    description_en: >
+      Verify a public HTTP/HTTPS claim before retrying. Body requires claim_id, url,
+      and check. Supported check kinds: exists, text_equals, json_equals. Returns
+      CONFIRMED, DIVERGENT, or INCONCLUSIVE with an evidence receipt.
+    allowed_params: []
