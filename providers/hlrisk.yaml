@@ -1,0 +1,22 @@
+id: hlrisk
+name: hlrisk
+short_description: "Real-time Hyperliquid BTC/ETH liquidation risk"
+full_description: "Notional at risk if price moves ±1%/3%/5%, the position closest to liquidation, and funding rate, computed from real on-chain Hyperliquid position data (not estimates). Also available natively over x402 on Base."
+website: https://hlrisk.paidapis.net
+logo_url: /providers/hlrisk.svg
+category: crypto
+tags: [hyperliquid, liquidations, risk, perps, derivatives, trading-agents]
+
+upstream_base_url: https://hlrisk.paidapis.net
+upstream_type: api_key
+upstream_auth_env: HLRISK_API_KEY
+upstream_auth_header: x-hlrisk-partner-key
+
+routes:
+  - gateway_path: /api/v1/hlrisk/liquidation-risk
+    upstream_path: /api/partner/hl-liquidation-risk
+    method: GET
+    category: Data
+    user_price: "0.03"
+    upstream_cost: "0.000"
+    description_en: "Hyperliquid BTC/ETH liquidation risk index: notional at risk at ±1/3/5% moves, closest-to-liquidation position, funding rate"

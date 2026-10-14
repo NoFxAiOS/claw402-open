@@ -1,0 +1,12 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11151d"/>
+      <stop offset="100%" stop-color="#0b0d12"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" rx="72" fill="url(#bg)"/>
+  <circle cx="200" cy="200" r="132" fill="none" stroke="#7dd3a8" stroke-width="6" opacity="0.35"/>
+  <circle cx="200" cy="200" r="98" fill="none" stroke="#7dd3a8" stroke-width="6" opacity="0.6"/>
+  <text x="200" y="228" font-family="-apple-system, 'Segoe UI', Arial, sans-serif" font-size="112" font-weight="700" fill="#7dd3a8" text-anchor="middle">HL</text>
+</svg>
