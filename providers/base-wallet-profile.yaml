@@ -1,0 +1,25 @@
+id: base-wallet-profile
+name: Base Wallet Profile
+short_description: "Read-only Base wallet activity context via x402"
+full_description: >
+  Native x402 upstream on Base Mainnet. Returns public on-chain wallet activity
+  context including native balance, contract status, transaction and ERC-20
+  transfer counts, activity dates when available, and heuristic activity flags.
+  This is not sanctions, theft, identity, KYC/AML, or safety screening; an empty
+  riskFlags array does not imply that a wallet is safe. Claw402 charges $0.01 per
+  call and pays the upstream service $0.005 per call.
+website: https://x402-wallet-profile-api-production.up.railway.app
+logo_url: /logos/base-wallet-profile.svg
+category: crypto
+tags: [base, wallet, onchain, activity, analytics, x402-native, mcp, ai-agent]
+upstream_base_url: https://x402-wallet-profile-api-production.up.railway.app
+upstream_type: x402
+routes:
+  - gateway_path: /api/v1/base-wallet-profile/wallet
+    upstream_path: /wallet
+    method: GET
+    category: Onchain
+    user_price: "0.01"
+    upstream_cost: "0.005"
+    description_en: "Read-only public Base wallet profile: balance, contract status, transaction and token-transfer counts, activity dates when available, and heuristic flags. Not sanctions or theft screening, KYC/AML, identity verification, or a safety verdict. Pass an EVM address as the address query parameter."
+    allowed_params: [address]

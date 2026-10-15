@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Base Wallet Profile</title>
+  <rect width="128" height="128" rx="28" fill="#0b1020"/>
+  <path d="M64 17a47 47 0 1 0 46 56H64a9 9 0 0 1 0-18h46A47 47 0 0 0 64 17Z" fill="#1652f0"/>
+  <path d="M64 34a30 30 0 1 0 29 36H64a6 6 0 0 1 0-12h29A30 30 0 0 0 64 34Z" fill="#fff" opacity=".95"/>
+  <circle cx="64" cy="64" r="7" fill="#0b1020"/>
+</svg>
