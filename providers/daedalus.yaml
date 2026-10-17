@@ -1,0 +1,105 @@
+id: daedalus
+order: 3
+name: DDG Agent Services
+short_description: "421 x402-paid agent APIs: audits, verification, enrichment, search"
+short_description_zh: "421 个 x402 付费智能体 API：审计、验证、数据增强、搜索"
+full_description: "DDG Agent Services is a no-KYC x402-native API fleet on Base: 421 per-call endpoints covering security audits (deep code/site scans), verification rails (UCP/AP2 checkout-session verification, ERC-8004 agent screening, MPP payment-intent verification), enrichment, search, embeddings, screenshots, and price feeds. First call per route per agent per day is free on 15 flagship routes. Prices from $0.002 to $0.05; settled in USDC; anonymous by design. Manifests: /.well-known/x402 (296 resources), /.well-known/agent-pricing.json, OpenAPI at /openapi.json."
+full_description_zh: "DDG Agent Services 是 Base 上的无 KYC x402 API 集群：421 个按次计费端点，涵盖安全审计（深度代码/站点扫描）、验证轨道（UCP/AP2 结算会话验证、ERC-8004 智能体筛查、MPP 支付意图验证）、数据增强、搜索、嵌入、截图与价格行情。15 条旗舰路由每智能体每日首次调用免费。价格 $0.002–$0.05，USDC 结算，匿名设计。"
+website: https://agents.daedalusdevelopmentgroup.com
+logo_url: /providers/daedalus.png
+category: agent-services
+tags: [x402, agent, audit, verification, ucp, ap2, mpp, erc8004, security, enrichment, base, usdc]
+featured: false
+
+upstream_base_url: https://agents.daedalusdevelopmentgroup.com
+upstream_type: none
+upstream_auth_env: ""
+upstream_auth_header: ""
+
+routes:
+  # ── Verification rails (newest, unique) ──
+  - gateway_path: /api/v1/agent/daedalus/ucp-checkout-verify
+    upstream_path: /v1/ucp/checkout-verify
+    method: POST
+    category: Verification
+    user_price: "0.01"
+    upstream_cost: "0.000"
+    description: "验证 UCP 结算会话的 AP2 签名（merchant_authorization JWS + checkout_mandate 哈希绑定）。body: 原始 checkout session 对象"
+    description_en: "Verify a UCP checkout session's AP2 signatures (merchant_authorization JWS detached ES256/384/512, checkout_mandate hash-binding). Body: the checkout session object. Optional ucp_manifest_url for key resolution."
+    mime_type: application/json
+    allowed_params: [order, payment, ucp_manifest_url]
+
+  - gateway_path: /api/v1/agent/daedalus/erc8004-screen
+    upstream_path: /v1/8004/screen
+    method: POST
+    category: Verification
+    user_price: "0.01"
+    upstream_cost: "0.000"
+    description: "ERC-8004 智能体身份风险筛查。body: {agent_id: string}"
+    description_en: "Screen an agent identity (ERC-8004) for risk signals before transacting. Body: {agent_id}. Free rules endpoint at /v1/8004/screen/rules."
+    mime_type: application/json
+    allowed_params: [agent_id]
+
+  - gateway_path: /api/v1/agent/daedalus/mpp-intent-verify
+    upstream_path: /v1/mpp/intent-verify
+    method: POST
+    category: Verification
+    user_price: "0.005"
+    upstream_cost: "0.000"
+    description: "MPP 支付意图结构验证（金额/地址/过期/nonce）。body: {intent: {...}}"
+    description_en: "Structurally validate an MPP payment-intent: fields, atomic amount, payer/payee address shapes, expiry window, nonce, self-transfer. Body: {intent}."
+    mime_type: application/json
+    allowed_params: [intent]
+
+  # ── Proven sellers (web-search is the top funnel route) ──
+  - gateway_path: /api/v1/agent/daedalus/web-search
+    upstream_path: /v1/web-search
+    method: POST
+    category: Search
+    user_price: "0.01"
+    upstream_cost: "0.000"
+    description: "网页搜索。body: {query: string, count?: int}。每日首次免费"
+    description_en: "Web search returning ranked results with snippets. Body: {query, count?}. First call per agent per day free."
+    mime_type: application/json
+    allowed_params: [query, count]
+    body_defaults:
+      query: "bitcoin price"
+
+  - gateway_path: /api/v1/agent/daedalus/price-feed
+    upstream_path: /v1/price-feed
+    method: POST
+    category: Market
+    user_price: "0.01"
+    upstream_cost: "0.000"
+    description: "加密货币价格行情。body: {symbol: string}。每日首次免费"
+    description_en: "Crypto price feed. Body: {symbol}. First call per agent per day free."
+    mime_type: application/json
+    allowed_params: [symbol]
+    body_defaults:
+      symbol: "BTC"
+
+  - gateway_path: /api/v1/agent/daedalus/site-audit
+    upstream_path: /v1/site-audit
+    method: POST
+    category: Audit
+    user_price: "0.02"
+    upstream_cost: "0.000"
+    description: "站点安全审计（headers/TLS/暴露面）。body: {url: string}"
+    description_en: "Website security audit (headers, TLS, exposed surfaces). Body: {url}."
+    mime_type: application/json
+    allowed_params: [url]
+    body_defaults:
+      url: "https://example.com"
+
+  - gateway_path: /api/v1/agent/daedalus/fetch-as-markdown
+    upstream_path: /v1/fetch-as-markdown
+    method: POST
+    category: Content
+    user_price: "0.01"
+    upstream_cost: "0.000"
+    description: "抓取网页并转为 Markdown。body: {url: string}。每日首次免费"
+    description_en: "Fetch a URL and return clean markdown. Body: {url}. First call per agent per day free."
+    mime_type: application/json
+    allowed_params: [url]
+    body_defaults:
+      url: "https://example.com"
