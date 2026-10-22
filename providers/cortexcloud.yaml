@@ -1,0 +1,220 @@
+id: cortexcloud
+order: 20
+name: CortexCloud
+short_description: "Wallet-level on-chain data, evidence-backed JSON — native x402"
+short_description_zh: "钱包级链上数据，证据可溯源 — 原生 x402"
+full_description: >
+  CortexCloud is a data-only on-chain intelligence API. Every paid response carries its upstream
+  source and a checked_at timestamp, so an agent can cite what it returns instead of guessing.
+  Covers ERC-20 balances and prices, NFT ownership, transaction history, token risk, wallet
+  intelligence, whale alerts, cross-chain comparison and batch aggregates across Ethereum, Base,
+  Arbitrum, Polygon and Optimism. Batch routes accept up to 20 addresses in one call.
+  No API key needed — claw402 pays CortexCloud $0.004–0.040/call on-chain via x402 and charges you
+  $0.006–0.056/call. MCP server for AI agents: https://api.cortexcloud.org/mcp
+full_description_zh: >
+  CortexCloud 是一个纯链上数据 API。每个付费响应都附带数据来源与 checked_at 时间戳，Agent 可以直接引用
+  而无需猜测。覆盖 ERC-20 余额与价格、NFT 持仓、交易历史、代币风险、钱包情报、巨鲸告警、跨链对比，
+  以及批量聚合查询，支持 Ethereum、Base、Arbitrum、Polygon 与 Optimism。批量接口单次最多 20 个地址。
+  无需 API Key — claw402 通过 x402 向上游按次支付 $0.004–0.040，向用户收取 $0.006–0.056。
+  AI Agent 的 MCP 端点：https://api.cortexcloud.org/mcp
+website: https://api.cortexcloud.org
+logo_url: /providers/cortexcloud.png
+category: crypto
+tags: [onchain, wallet, balances, nft, transactions, token-risk, whale, cross-chain, x402-native, mcp, ai-agent]
+featured: true
+
+upstream_base_url: https://api.cortexcloud.org
+upstream_type: x402
+
+routes:
+  # ── Wallet state ──
+  - gateway_path: /api/v1/crypto/cortexcloud/token-balances
+    upstream_path: /v1/data/token-balances
+    method: POST
+    category: Wallet
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "查询钱包的 ERC-20 代币余额。body: {address: string, chain?: string, tokens?: string[], max_tokens?: int}。chain 默认 ethereum，支持 base/arbitrum/polygon/optimism。"
+    description_en: "ERC-20 token balances for a wallet. Body: {address: string, chain?: string, tokens?: string[], max_tokens?: int}. chain defaults to ethereum; base/arbitrum/polygon/optimism supported."
+    mime_type: application/json
+    allowed_params: [address, chain, tokens, max_tokens]
+    body_defaults:
+      address: "0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"
+      chain: base
+      max_tokens: 50
+
+  - gateway_path: /api/v1/crypto/cortexcloud/token-price
+    upstream_path: /v1/data/token-price
+    method: POST
+    category: Prices
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "代币现货美元价格（CoinGecko/Alchemy）。body: {id?: string, contract?: string, chain?: string}，id 为 CoinGecko ID（如 ethereum），或提供合约地址 + chain。"
+    description_en: "Spot USD price for a token. Body: {id?: string, contract?: string, chain?: string}. id is a CoinGecko ID (e.g. ethereum), or pass a contract address with chain."
+    mime_type: application/json
+    allowed_params: [id, contract, chain]
+    body_defaults:
+      contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      chain: base
+
+  - gateway_path: /api/v1/crypto/cortexcloud/nft-ownership
+    upstream_path: /v1/data/nft-ownership
+    method: POST
+    category: Wallet
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "钱包持有的 NFT 列表（合约、tokenId、合集元数据）。body: {address: string, chain?: string, page_size?: int}。"
+    description_en: "NFTs owned by a wallet, with collection metadata. Body: {address: string, chain?: string, page_size?: int}."
+    mime_type: application/json
+    allowed_params: [address, chain, page_size]
+    body_defaults:
+      address: "0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"
+      chain: base
+      page_size: 100
+
+  - gateway_path: /api/v1/crypto/cortexcloud/tx-history
+    upstream_path: /v1/data/tx-history
+    method: POST
+    category: Wallet
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "地址的规范化交易记录（Alchemy Transfers API）。body: {address: string, chain?: string, limit?: int, from_block?: int|string}。"
+    description_en: "Normalized transaction history for an address (Alchemy Transfers API). Body: {address: string, chain?: string, limit?: int, from_block?: int|string}."
+    mime_type: application/json
+    allowed_params: [address, chain, limit, from_block]
+    body_defaults:
+      address: "0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"
+      chain: base
+      limit: 25
+
+  - gateway_path: /api/v1/crypto/cortexcloud/wallet-intel
+    upstream_path: /v1/data/wallet-intel
+    method: POST
+    category: Intelligence
+    user_price: "0.009"
+    upstream_cost: "0.006"
+    description: "钱包画像：余额、近期活动、代币分布与风险信号，一次调用返回结构化 JSON。body: {address: string, chain?: string, limit?: int}。"
+    description_en: "Wallet profile in one call: balances, recent activity, token distribution and risk signals as structured JSON. Body: {address: string, chain?: string, limit?: int}."
+    mime_type: application/json
+    allowed_params: [address, chain, limit]
+    body_defaults:
+      address: "0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"
+      chain: base
+      limit: 25
+
+  # ── Token intelligence ──
+  - gateway_path: /api/v1/crypto/cortexcloud/token-risk
+    upstream_path: /v1/data/token-risk
+    method: POST
+    category: Intelligence
+    user_price: "0.028"
+    upstream_cost: "0.020"
+    description: "代币风险评估：流动性、持有人集中度、合约与市场信号。body: {contract: string, chain?: string, coin_id?: string}。"
+    description_en: "Token risk assessment: liquidity, holder concentration, contract and market signals. Body: {contract: string, chain?: string, coin_id?: string}."
+    mime_type: application/json
+    allowed_params: [contract, chain, coin_id]
+    body_defaults:
+      contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      chain: base
+      coin_id: usd-coin
+
+  - gateway_path: /api/v1/crypto/cortexcloud/token-intel
+    upstream_path: /v1/data/token-intel
+    method: POST
+    category: Intelligence
+    user_price: "0.042"
+    upstream_cost: "0.030"
+    description: "代币全景情报：价格、市值、流动性、持有人与风险，每条结论附数据来源与 checked_at。body: {contract: string, chain?: string, coin_id?: string}。"
+    description_en: "Full token intelligence: price, market cap, liquidity, holders and risk, with a source and checked_at for every claim. Body: {contract: string, chain?: string, coin_id?: string}."
+    mime_type: application/json
+    allowed_params: [contract, chain, coin_id]
+    body_defaults:
+      contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      chain: base
+      coin_id: usd-coin
+
+  - gateway_path: /api/v1/crypto/cortexcloud/whale-alerts
+    upstream_path: /v1/data/whale-alerts
+    method: POST
+    category: Intelligence
+    user_price: "0.042"
+    upstream_cost: "0.030"
+    description: "大额转账（巨鲸）告警，可按地址、链与最小美元金额过滤。body: {address?: string, chain?: string, min_usd?: number, limit?: int}。"
+    description_en: "Large-transfer (whale) alerts, filterable by address, chain and minimum USD value. Body: {address?: string, chain?: string, min_usd?: number, limit?: int}."
+    mime_type: application/json
+    allowed_params: [address, chain, min_usd, limit]
+    body_defaults:
+      chain: base
+      min_usd: 100000
+      limit: 50
+
+  - gateway_path: /api/v1/crypto/cortexcloud/cross-chain-compare
+    upstream_path: /v1/data/cross-chain-compare
+    method: POST
+    category: Intelligence
+    user_price: "0.056"
+    upstream_cost: "0.040"
+    description: "同一代币在最多 5 条链上的价格、流动性与供应对比。body: {contract: string, chains?: string[]}，chains 默认 [ethereum, base, arbitrum, polygon, optimism]。"
+    description_en: "Compare one token across up to 5 chains: price, liquidity and supply. Body: {contract: string, chains?: string[]}; chains defaults to [ethereum, base, arbitrum, polygon, optimism]."
+    mime_type: application/json
+    allowed_params: [contract, chains]
+    body_defaults:
+      contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      chains: [ethereum, base, arbitrum]
+
+  # ── Batch aggregates (up to 20 addresses per call) ──
+  - gateway_path: /api/v1/crypto/cortexcloud/batch/balances
+    upstream_path: /v1/aggregate/balances
+    method: POST
+    category: Batch
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "批量查询最多 20 个地址的代币余额，单次计价 $0.006（无论地址数量）。body: {addresses: string[], chain?: string}。"
+    description_en: "Batch token balances for up to 20 addresses in one call, flat $0.006 regardless of address count. Body: {addresses: string[], chain?: string}."
+    mime_type: application/json
+    allowed_params: [addresses, chain]
+    body_defaults:
+      addresses: ["0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143", "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]
+      chain: base
+
+  - gateway_path: /api/v1/crypto/cortexcloud/batch/prices
+    upstream_path: /v1/aggregate/prices
+    method: POST
+    category: Batch
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "批量代币价格（CoinGecko ID 列表）。body: {ids: string[]}。"
+    description_en: "Batch token prices from a list of CoinGecko IDs. Body: {ids: string[]}."
+    mime_type: application/json
+    allowed_params: [ids]
+    body_defaults:
+      ids: [ethereum, usd-coin, arbitrum]
+
+  - gateway_path: /api/v1/crypto/cortexcloud/batch/nfts
+    upstream_path: /v1/aggregate/nfts
+    method: POST
+    category: Batch
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "批量 NFT 持仓查询，最多 20 个地址，单次计价 $0.006。body: {addresses: string[], chain?: string}。"
+    description_en: "Batch NFT ownership for up to 20 addresses, flat $0.006 per call. Body: {addresses: string[], chain?: string}."
+    mime_type: application/json
+    allowed_params: [addresses, chain]
+    body_defaults:
+      addresses: ["0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"]
+      chain: base
+
+  - gateway_path: /api/v1/crypto/cortexcloud/batch/tx-history
+    upstream_path: /v1/aggregate/tx-history
+    method: POST
+    category: Batch
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "批量交易历史，最多 20 个地址，单次计价 $0.006。body: {addresses: string[], chain?: string, limit?: int}。"
+    description_en: "Batch transaction history for up to 20 addresses, flat $0.006 per call. Body: {addresses: string[], chain?: string, limit?: int}."
+    mime_type: application/json
+    allowed_params: [addresses, chain, limit]
+    body_defaults:
+      addresses: ["0x5a0353bc9c75b893a9b5735d3e79f1bd988ea143"]
+      chain: base
+      limit: 25
