@@ -1,26 +1,26 @@
 id: cortexcloud
 order: 20
 name: CortexCloud
-short_description: "Wallet-level on-chain data, evidence-backed JSON — native x402"
-short_description_zh: "钱包级链上数据，证据可溯源 — 原生 x402"
+short_description: "Wallet, token & chain data, evidence-backed JSON — native x402"
+short_description_zh: "钱包、代币与链上数据，证据可溯源 — 原生 x402"
 full_description: >
   CortexCloud is a data-only on-chain intelligence API. Every paid response carries its upstream
   source and a checked_at timestamp, so an agent can cite what it returns instead of guessing.
-  Covers ERC-20 balances and prices, NFT ownership, transaction history, token risk, wallet
-  intelligence, whale alerts, cross-chain comparison and batch aggregates across Ethereum, Base,
-  Arbitrum, Polygon and Optimism. Batch routes accept up to 20 addresses in one call.
+  Covers ERC-20 balances and prices, NFT ownership, transaction history, gas prices, block data,
+  token risk, wallet intelligence, whale alerts, cross-chain comparison and batch aggregates across
+  Ethereum, Base, Arbitrum, Polygon and Optimism. Batch routes accept up to 20 addresses in one call.
   No API key needed — claw402 pays CortexCloud $0.004–0.040/call on-chain via x402 and charges you
   $0.006–0.056/call. MCP server for AI agents: https://api.cortexcloud.org/mcp
 full_description_zh: >
   CortexCloud 是一个纯链上数据 API。每个付费响应都附带数据来源与 checked_at 时间戳，Agent 可以直接引用
-  而无需猜测。覆盖 ERC-20 余额与价格、NFT 持仓、交易历史、代币风险、钱包情报、巨鲸告警、跨链对比，
-  以及批量聚合查询，支持 Ethereum、Base、Arbitrum、Polygon 与 Optimism。批量接口单次最多 20 个地址。
-  无需 API Key — claw402 通过 x402 向上游按次支付 $0.004–0.040，向用户收取 $0.006–0.056。
-  AI Agent 的 MCP 端点：https://api.cortexcloud.org/mcp
-website: https://api.cortexcloud.org
+  而无需猜测。覆盖 ERC-20 余额与价格、NFT 持仓、交易历史、Gas 价格、区块数据、代币风险、钱包情报、
+  巨鲸告警、跨链对比，以及批量聚合查询，支持 Ethereum、Base、Arbitrum、Polygon 与 Optimism。
+  批量接口单次最多 20 个地址。无需 API Key — claw402 通过 x402 向上游按次支付 $0.004–0.040，
+  向用户收取 $0.006–0.056。AI Agent 的 MCP 端点：https://api.cortexcloud.org/mcp
+website: https://cortexcloud.org
 logo_url: /providers/cortexcloud.png
 category: crypto
-tags: [onchain, wallet, balances, nft, transactions, token-risk, whale, cross-chain, x402-native, mcp, ai-agent]
+tags: [onchain, wallet, balances, nft, transactions, gas, blocks, token-risk, whale, cross-chain, x402-native, mcp, ai-agent]
 featured: true
 
 upstream_base_url: https://api.cortexcloud.org
@@ -161,6 +161,29 @@ routes:
     body_defaults:
       contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
       chains: [ethereum, base, arbitrum]
+
+  # ── Chain state ──
+  - gateway_path: /api/v1/crypto/cortexcloud/gas-oracle
+    upstream_path: /v1/data/gas-oracle
+    method: GET
+    category: Chain
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "链上 Gas 价格：base fee 与 priority fee（Alchemy）。query: {chain?: string}，默认 ethereum。"
+    description_en: "Current gas price for a chain: base fee plus priority fee (Alchemy). Query: {chain?: string}; defaults to ethereum."
+    mime_type: application/json
+    allowed_params: [chain]
+
+  - gateway_path: /api/v1/crypto/cortexcloud/block
+    upstream_path: /v1/data/block
+    method: GET
+    category: Chain
+    user_price: "0.006"
+    upstream_cost: "0.004"
+    description: "按区块号或 latest 查询区块（Alchemy）。query: {chain?: string, block?: string}，默认 ethereum + latest。"
+    description_en: "Block by number or 'latest' on a chain (Alchemy). Query: {chain?: string, block?: string}; defaults to ethereum + latest."
+    mime_type: application/json
+    allowed_params: [chain, block]
 
   # ── Batch aggregates (up to 20 addresses per call) ──
   - gateway_path: /api/v1/crypto/cortexcloud/batch/balances
