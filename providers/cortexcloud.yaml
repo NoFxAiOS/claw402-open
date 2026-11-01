@@ -7,16 +7,18 @@ full_description: >
   CortexCloud is a data-only on-chain intelligence API. Every paid response carries its upstream
   source and a checked_at timestamp, so an agent can cite what it returns instead of guessing.
   Covers ERC-20 balances and prices, NFT ownership, transaction history, gas prices, block data,
-  token risk, wallet intelligence, whale alerts, cross-chain comparison and batch aggregates across
-  Ethereum, Base, Arbitrum, Polygon and Optimism. Batch routes accept up to 20 addresses in one call.
-  No API key needed — claw402 pays CortexCloud $0.004–0.040/call on-chain via x402 and charges you
-  $0.006–0.056/call. MCP server for AI agents: https://api.cortexcloud.org/mcp
+  token risk, wallet intelligence, whale alerts, cross-chain comparison, one-call market snapshots
+  (token + whale + risk), whale-alert webhook registration and batch aggregates across Ethereum,
+  Base, Arbitrum, Polygon and Optimism. Batch routes accept up to 20 addresses in one call.
+  No API key needed — claw402 pays CortexCloud $0.004–0.100/call on-chain via x402 and charges you
+  $0.006–0.140/call. MCP server for AI agents: https://api.cortexcloud.org/mcp
 full_description_zh: >
   CortexCloud 是一个纯链上数据 API。每个付费响应都附带数据来源与 checked_at 时间戳，Agent 可以直接引用
   而无需猜测。覆盖 ERC-20 余额与价格、NFT 持仓、交易历史、Gas 价格、区块数据、代币风险、钱包情报、
-  巨鲸告警、跨链对比，以及批量聚合查询，支持 Ethereum、Base、Arbitrum、Polygon 与 Optimism。
-  批量接口单次最多 20 个地址。无需 API Key — claw402 通过 x402 向上游按次支付 $0.004–0.040，
-  向用户收取 $0.006–0.056。AI Agent 的 MCP 端点：https://api.cortexcloud.org/mcp
+  巨鲸告警、跨链对比、一次调用返回的市场快照（代币 + 巨鲸 + 风险）、巨鲸告警 Webhook 注册，以及
+  批量聚合查询，支持 Ethereum、Base、Arbitrum、Polygon 与 Optimism。
+  批量接口单次最多 20 个地址。无需 API Key — claw402 通过 x402 向上游按次支付 $0.004–0.100，
+  向用户收取 $0.006–0.140。AI Agent 的 MCP 端点：https://api.cortexcloud.org/mcp
 website: https://cortexcloud.org
 logo_url: /providers/cortexcloud.png
 category: crypto
@@ -137,8 +139,8 @@ routes:
     upstream_path: /v1/data/whale-alerts
     method: POST
     category: Intelligence
-    user_price: "0.042"
-    upstream_cost: "0.030"
+    user_price: "0.070"
+    upstream_cost: "0.050"
     description: "大额转账（巨鲸）告警，可按地址、链与最小美元金额过滤。body: {address?: string, chain?: string, min_usd?: number, limit?: int}。"
     description_en: "Large-transfer (whale) alerts, filterable by address, chain and minimum USD value. Body: {address?: string, chain?: string, min_usd?: number, limit?: int}."
     mime_type: application/json
@@ -161,6 +163,32 @@ routes:
     body_defaults:
       contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
       chains: [ethereum, base, arbitrum]
+
+  - gateway_path: /api/v1/crypto/cortexcloud/market-snapshot
+    upstream_path: /v1/data/market-snapshot
+    method: POST
+    category: Market
+    user_price: "0.098"
+    upstream_cost: "0.070"
+    description: "一次调用返回代币市场快照：代币情报 + 巨鲸活动 + 风险判定并行汇总，单次计价 $0.098。body: {contract: string, chain?: string, address?: string, coin_id?: string, min_usd?: number, limit?: int}。某个板块失败时该板块返回 error 字段，其余板块仍返回。"
+    description_en: "One-call market snapshot: token intelligence, whale activity and risk verdict fanned out in parallel, flat $0.098 per call. Body: {contract: string, chain?: string, address?: string, coin_id?: string, min_usd?: number, limit?: int}. A section that fails carries an error field; the rest still return."
+    mime_type: application/json
+    allowed_params: [contract, chain, address, coin_id, min_usd, limit]
+    body_defaults:
+      contract: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      chain: base
+      coin_id: usd-coin
+
+  - gateway_path: /api/v1/crypto/cortexcloud/whale-webhook
+    upstream_path: /v1/webhooks/whale-alerts
+    method: POST
+    category: Webhooks
+    user_price: "0.140"
+    upstream_cost: "0.100"
+    description: "注册 HTTPS 巨鲸告警 Webhook：注册计价 $0.140，之后每条推送按 $0.02 计入该注册的应付金额。提供 secret 时以 HMAC-SHA256 签名。body: {url: string, address: string, chain?: string, min_usd?: number, limit?: int, secret?: string}。响应返回仅出现一次的 management_token，用于 DELETE 注销。"
+    description_en: "Register an HTTPS whale-alert webhook: $0.140 registration, then $0.02 per delivered alert accrued on the registration. HMAC-SHA256 signed when secret is supplied. Body: {url: string, address: string, chain?: string, min_usd?: number, limit?: int, secret?: string}. The response returns a one-time management_token used to unregister."
+    mime_type: application/json
+    allowed_params: [url, address, chain, min_usd, limit, secret]
 
   # ── Chain state ──
   - gateway_path: /api/v1/crypto/cortexcloud/gas-oracle
