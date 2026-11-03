@@ -1,0 +1,37 @@
+id: preipo-feed
+order: 18
+name: PreIPO Feed
+short_description: "On-chain pre-IPO perps vs private valuation for OpenAI and Anthropic, native x402"
+short_description_zh: "OpenAI 与 Anthropic 的链上 pre-IPO 永续 vs 私募估值，原生 x402"
+full_description: >
+  PreIPO Feed (preipo-feed.vercel.app) sells sourced pre-IPO facts to agents over x402.
+  This listing exposes one live endpoint: the OpenAI and Anthropic perpetuals on Hyperliquid
+  HIP-3 (EntropyIO io:OAI, io:ANTH) converted to implied company valuation, set against the
+  last private round post-money and the reported IPO valuation target, with premium/discount,
+  funding, open interest and 24h volume. Every private anchor carries its source and a
+  verification grade (primary / secondary / reported). Upstream is native x402 on Base USDC
+  (payment is auth). Factual data only, not investment advice.
+full_description_zh: >
+  PreIPO Feed（preipo-feed.vercel.app）通过 x402 向 agent 出售带出处的 pre-IPO 事实数据。
+  本列表只开放一个实时接口：Hyperliquid HIP-3 上的 OpenAI 与 Anthropic 永续（EntropyIO io:OAI、io:ANTH）
+  换算成隐含公司估值，对比最近一轮私募投后估值和报道的 IPO 目标估值，附溢价/折价、资金费、持仓量和 24 小时成交量。
+  每个私募锚点都带出处和核实等级（primary / secondary / reported）。上游为 Base USDC 原生 x402（支付即鉴权）。
+  仅为事实数据，不构成投资建议。
+website: https://preipo-feed.vercel.app
+logo_url: /providers/preipo-feed.svg
+category: crypto
+tags: [pre-ipo, hyperliquid, hip-3, valuation, perps, openai, anthropic, x402-native]
+featured: false
+
+upstream_base_url: https://preipo-feed.vercel.app
+upstream_type: x402
+
+routes:
+  - gateway_path: /api/v1/crypto/preipo-feed/onchain-vs-private
+    upstream_path: /preipo/onchain-vs-private
+    method: GET
+    category: Pre-IPO Perps
+    user_price: "0.03"
+    upstream_cost: "0.02"
+    description: "实时：io:OAI / io:ANTH 隐含估值 vs 最近私募投后估值与 IPO 目标；溢价、资金费、持仓量、24h 成交量，私募锚点带出处与核实等级。"
+    description_en: "Live: io:OAI / io:ANTH implied valuation vs last private post-money and IPO target; premium, funding, open interest, 24h volume; private anchors carry source and verification grade."
