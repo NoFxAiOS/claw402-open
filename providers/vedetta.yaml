@@ -1,0 +1,213 @@
+id: vedetta
+order: 17
+name: Vedetta
+short_description: "Crypto market intelligence desk for AI agents — native x402 pay-per-call"
+short_description_zh: "面向 AI Agent 的加密市场情报台 — 原生 x402 按次付费"
+full_description: >
+  Vedetta (vedetta.dethboy.com) is a pay-per-call crypto market-intelligence API for AI agents.
+  Free origin endpoints (omitted here): /v1/route, /v1/track-record, /v1/korra/{calls,news,lean}.
+  This claw402 listing exposes paid Base x402 paths only: cached history/screener,
+  paid feed/snapshot, and live analyst reads (ask, consensus, pulse, and related desks).
+  Upstream is native x402 on Base USDC (payment is auth) — claw402 settles upstream_cost and
+  charges user_price. Descriptive market analysis only — not financial advice.
+  Product 2.14.1 · prices synced from https://vedetta.dethboy.com/.well-known/x402.json (2026-11-11).
+full_description_zh: >
+  Vedetta（vedetta.dethboy.com）是面向 AI Agent 的按次付费加密市场情报 API。
+  源站免费端点（本列表省略）：/v1/route、/v1/track-record、/v1/korra/{calls,news,lean}。
+  本 claw402 列表仅暴露付费 Base x402 路径：缓存 history/screener、付费 feed/snapshot，
+  以及实时分析师读数（ask、consensus、pulse 等）。
+  上游为 Base USDC 原生 x402（支付即鉴权）— claw402 结算 upstream_cost 并向用户收取 user_price。
+  仅为描述性市场分析，不构成投资建议。
+  产品 2.14.1 · 价格同步自 /.well-known/x402.json（2026-11-11）。
+website: https://vedetta.dethboy.com
+logo_url: /providers/vedetta.svg
+category: crypto
+tags: [crypto, market-intelligence, sentiment, x402-native, ai-agent, desk, history, screener]
+featured: false
+
+upstream_base_url: https://vedetta.dethboy.com
+upstream_type: x402
+
+routes:
+  # ── Cached ──
+  - gateway_path: /api/v1/crypto/vedetta/history
+    upstream_path: /v1/history
+    method: GET
+    category: Cached
+    user_price: "0.015"
+    upstream_cost: "0.01"
+    description: "历史情绪/价格序列（缓存）。asset 必填；limit 可选。"
+    description_en: "Cached sentiment-vs-price history series. asset required; limit optional."
+    allowed_params: [asset, limit]
+
+  - gateway_path: /api/v1/crypto/vedetta/screener
+    upstream_path: /v1/screener
+    method: GET
+    category: Cached
+    user_price: "0.04"
+    upstream_cost: "0.03"
+    description: "跨资产背离筛查（缓存）。only 可选过滤。"
+    description_en: "Cross-asset divergence screener (cached). optional only filter."
+    allowed_params: [only]
+
+  # ── Paid feed / snapshot ──
+  - gateway_path: /api/v1/crypto/vedetta/feed
+    upstream_path: /v1/feed
+    method: GET
+    category: Feed
+    user_price: "0.015"
+    upstream_cost: "0.01"
+    description: "付费情报 feed。since_id / asset / limit 可选。"
+    description_en: "Paid intelligence feed. optional since_id, asset, limit."
+    allowed_params: [since_id, asset, limit]
+
+  - gateway_path: /api/v1/crypto/vedetta/snapshot
+    upstream_path: /v1/snapshot
+    method: GET
+    category: Feed
+    user_price: "0.015"
+    upstream_cost: "0.01"
+    description: "付费资产快照。asset 必填。"
+    description_en: "Paid asset snapshot. asset required."
+    allowed_params: [asset]
+
+  # ── Live desk ──
+  - gateway_path: /api/v1/crypto/vedetta/ask
+    upstream_path: /v1/ask
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "实时分析师问答。q 与/或 asset 可选。"
+    description_en: "Live analyst Q&A. optional q and/or asset."
+    allowed_params: [q, asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/consensus
+    upstream_path: /v1/consensus
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "情绪相对价格共识裁决。asset 必填。"
+    description_en: "Sentiment-vs-price consensus verdict. asset required."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/pulse
+    upstream_path: /v1/pulse
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "实时市场 pulse 读数。"
+    description_en: "Live market pulse read."
+    allowed_params: []
+
+  - gateway_path: /api/v1/crypto/vedetta/theme
+    upstream_path: /v1/theme
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "主题/叙事台面读数。"
+    description_en: "Theme / narrative desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/trend
+    upstream_path: /v1/trend
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "趋势台面读数。"
+    description_en: "Trend desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/macro
+    upstream_path: /v1/macro
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "宏观台面读数。"
+    description_en: "Macro desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/prediction
+    upstream_path: /v1/prediction
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "预测市场相关台面读数。"
+    description_en: "Prediction-markets desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/news-read
+    upstream_path: /v1/news-read
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "新闻解读台面。"
+    description_en: "News-read desk."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/house-view
+    upstream_path: /v1/house-view
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "House view 台面读数。"
+    description_en: "House-view desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/event
+    upstream_path: /v1/event
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "事件台面读数。"
+    description_en: "Event desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/odds
+    upstream_path: /v1/odds
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "赔率/概率台面读数。"
+    description_en: "Odds / probability desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/social
+    upstream_path: /v1/social
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "社交台面读数。"
+    description_en: "Social desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/narrative
+    upstream_path: /v1/narrative
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "叙事台面读数。"
+    description_en: "Narrative desk read."
+    allowed_params: [asset]
+
+  - gateway_path: /api/v1/crypto/vedetta/equity
+    upstream_path: /v1/equity
+    method: GET
+    category: Live Desk
+    user_price: "0.12"
+    upstream_cost: "0.09"
+    description: "权益/股票相关台面读数。"
+    description_en: "Equity desk read."
+    allowed_params: [asset]
